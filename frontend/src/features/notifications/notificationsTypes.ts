@@ -10,4 +10,12 @@ export interface NotificationDTO {
   actionUrl: string | null;
   priority: string;
   category: string;
+  source: string;
+  sourceId: string;
+  recipient: string;
 }
+
+export type CreateNotificationRequest = Pick<
+  NotificationDTO,
+  'userId' | 'type' | 'title' | 'content' | 'priority' | 'category' | 'source' | 'sourceId' | 'recipient'
+> & { actionUrl?: string };

@@ -11,6 +11,7 @@ import Spinner from '../../components/ui/Spinner';
 import StarRating from '../../components/ui/StarRating';
 import Badge from '../../components/ui/Badge';
 import ReviewCard from './components/ReviewCard';
+import ReviewForm from './components/ReviewForm';
 import Pagination from '../../components/ui/Pagination';
 
 export default function ProductDetailPage() {
@@ -166,6 +167,18 @@ export default function ProductDetailPage() {
       {/* Reviews Section */}
       <section className="mt-16 border-t border-gray-200 pt-12">
         <h2 className="text-xl font-bold text-gray-900 mb-6">Customer Reviews</h2>
+
+        {isAuthenticated && (
+          <div className="mb-8">
+            <ReviewForm
+              productId={product.id}
+              userId={user!.userId}
+              userNickname={user!.username}
+              onSuccess={() => setReviewPage(0)}
+            />
+          </div>
+        )}
+
         {reviewsData && reviewsData.content.length > 0 ? (
           <>
             <div className="space-y-6">
@@ -180,7 +193,7 @@ export default function ProductDetailPage() {
             />
           </>
         ) : (
-          <p className="text-gray-500">No reviews yet.</p>
+          <p className="text-gray-500">No reviews yet. Be the first to review this product!</p>
         )}
       </section>
     </div>

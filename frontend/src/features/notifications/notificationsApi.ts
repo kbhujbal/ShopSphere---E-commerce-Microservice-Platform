@@ -1,9 +1,14 @@
 import { baseApi } from '../../api/baseApi';
 import type { ApiResponse } from '../../api/apiTypes';
-import type { NotificationDTO } from './notificationsTypes';
+import type { NotificationDTO, CreateNotificationRequest } from './notificationsTypes';
 
 const notificationsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    createNotification: builder.mutation<NotificationDTO, CreateNotificationRequest>({
+      query: (body) => ({ url: '/notifications', method: 'POST', body }),
+      transformResponse: (response: ApiResponse<NotificationDTO>) => response.data,
+      invalidatesTags: ['Notifications'],
+    }),
     getNotifications: builder.query<NotificationDTO[], string>({
       query: (userId) => `/notifications/user/${userId}`,
       transformResponse: (response: ApiResponse<NotificationDTO[]>) => response.data,
@@ -30,6 +35,7 @@ const notificationsApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useCreateNotificationMutation,
   useGetNotificationsQuery,
   useGetUnreadNotificationsQuery,
   useMarkAsReadMutation,

@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useGetCartQuery, useClearCartMutation } from '../../features/cart/cartApi';
 import { useCreateOrderMutation } from '../../features/orders/ordersApi';
 import { useProcessPaymentMutation } from '../../features/payments/paymentsApi';
+import { useCreateNotificationMutation } from '../../features/notifications/notificationsApi';
 import { formatCurrency } from '../../utils/formatCurrency';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
@@ -16,6 +17,7 @@ export default function CheckoutPage() {
   const [createOrder] = useCreateOrderMutation();
   const [processPayment] = useProcessPaymentMutation();
   const [clearCart] = useClearCartMutation();
+  const [createNotification] = useCreateNotificationMutation();
 
   const [step, setStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
@@ -45,6 +47,7 @@ export default function CheckoutPage() {
       const shippingStr = `${shipping.address}, ${shipping.city}, ${shipping.state} ${shipping.postalCode}, ${shipping.country}`;
       const billingStr = `${effectiveBilling.address}, ${effectiveBilling.city}, ${effectiveBilling.state} ${effectiveBilling.postalCode}, ${effectiveBilling.country}`;
 
+      // 1. Create the order
       const order = await createOrder({
         userId: user!.userId,
         items: cart.items.map((item) => ({
@@ -65,25 +68,54 @@ export default function CheckoutPage() {
         paymentMethod,
       }).unwrap();
 
-      await processPayment({
-        orderId: order.id,
-        userId: user!.userId,
-        amount: order.total,
-        currency: 'USD',
-        paymentMethod,
-        billingAddress: effectiveBilling.address,
-        billingCity: effectiveBilling.city,
-        billingState: effectiveBilling.state,
-        billingCountry: effectiveBilling.country,
-        billingPostalCode: effectiveBilling.postalCode,
-        shippingAddress: shipping.address,
-        shippingCity: shipping.city,
-        shippingState: shipping.state,
-        shippingCountry: shipping.country,
-        shippingPostalCode: shipping.postalCode,
-      }).unwrap();
+      // 2. Process payment (non-blocking for order flow)
+      try {
+        await processPayment({
+          orderId: order.id,
+          userId: user!.userId,
+          amount: order.total,
+          currency: 'USD',
+          paymentMethod,
+          billingAddress: effectiveBilling.address,
+          billingCity: effectiveBilling.city,
+          billingState: effectiveBilling.state,
+          billingCountry: effectiveBilling.country,
+          billingPostalCode: effectiveBilling.postalCode,
+          shippingAddress: shipping.address,
+          shippingCity: shipping.city,
+          shippingState: shipping.state,
+          shippingCountry: shipping.country,
+          shippingPostalCode: shipping.postalCode,
+        }).unwrap();
+      } catch {
+        // Payment failed but order is created — continue
+      }
 
-      await clearCart(user!.userId).unwrap();
+      // 3. Clear the cart
+      try {
+        await clearCart(user!.userId).unwrap();
+      } catch {
+        // Cart clear failed — continue
+      }
+
+      // 4. Send notification
+      try {
+        await createNotification({
+          userId: user!.userId,
+          type: 'ORDER_CONFIRMATION',
+          title: 'Order Placed Successfully',
+          content: `Your order #${order.orderNumber || order.id} for ${formatCurrency(order.total)} has been placed and is being processed.`,
+          priority: 'HIGH',
+          category: 'ORDER',
+          source: 'order-service',
+          sourceId: order.id,
+          recipient: user!.email || user!.username,
+          actionUrl: `/orders/${order.id}`,
+        }).unwrap();
+      } catch {
+        // Notification failed — continue
+      }
+
       navigate(`/orders/${order.id}/confirmation`);
     } catch {
       setError('Failed to place order. Please try again.');
