@@ -1,0 +1,45 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: payment-service
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: shopsphere
+      username: root
+      password: root
+  data:
+    redis:
+      host: redis
+      port: 6379
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/v1/payments/**
+          filters:
+            - StripPrefix=1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+stripe:
+  secret-key: ${STRIPE_SECRET_KEY:your_stripe_secret_key_here}
+
+logging:
+  level:
+    com.shopsphere: DEBUG
+    org.springframework: INFO 

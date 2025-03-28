@@ -1,0 +1,93 @@
+name: Review Service CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'review-service/**'
+      - '.github/workflows/review-service-ci.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'review-service/**'
+      - '.github/workflows/review-service-ci.yml'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+        
+    - name: Build with Maven
+      run: cd review-service && ./mvnw -B package --file pom.xml
+      
+    - name: Run Tests
+      run: cd review-service && ./mvnw test
+      
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: review-service/target/surefire-reports/
+        
+  docker-build:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+      
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./review-service
+        push: true
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/review-service:latest
+          ${{ secrets.DOCKERHUB_USERNAME }}/review-service:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        
+  deploy:
+    needs: docker-build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v3
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+        
+    - name: Update kube config
+      run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+      
+    - name: Deploy to Kubernetes
+      run: |
+        cd review-service/k8s
+        kubectl apply -f deployment.yaml
+        kubectl apply -f service.yaml
+        kubectl rollout status deployment/review-service -n shopsphere 

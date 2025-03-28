@@ -1,0 +1,13 @@
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/controller/BaseController.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/exception/GlobalExceptionHandler.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/service/impl/BaseServiceImpl.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/exception/BaseException.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/exception/ValidationErrorResponse.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/exception/BadRequestException.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/repository/BaseRepository.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/model/BaseEntity.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/response/ApiResponse.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/exception/ErrorResponse.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/exception/ResourceNotFoundException.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/exception/UnauthorizedException.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/common/src/main/java/com/shopsphere/common/service/BaseService.java

@@ -1,0 +1,9 @@
+com/shopsphere/review/service/impl/ReviewServiceImpl.class
+com/shopsphere/review/mapper/ReviewMapper.class
+com/shopsphere/review/mapper/ReviewMapperImpl.class
+com/shopsphere/review/dto/ReviewDTO.class
+com/shopsphere/review/service/ReviewService.class
+com/shopsphere/review/controller/ReviewController.class
+com/shopsphere/review/repository/ReviewRepository.class
+com/shopsphere/review/model/Review.class
+com/shopsphere/review/ReviewServiceApplication.class

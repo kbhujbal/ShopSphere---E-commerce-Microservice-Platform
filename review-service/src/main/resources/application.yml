@@ -1,0 +1,35 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: review-service
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: reviewdb
+      username: ${MONGODB_USERNAME:reviewuser}
+      password: ${MONGODB_PASSWORD:reviewpass}
+    redis:
+      host: redis
+      port: 6379
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+logging:
+  level:
+    com.shopsphere.review: DEBUG
+    org.springframework.data.mongodb: INFO
+    org.springframework.data.redis: INFO 

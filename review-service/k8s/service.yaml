@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: review-service
+  namespace: shopsphere
+spec:
+  selector:
+    app: review-service
+  ports:
+  - port: 8086
+    targetPort: 8086
+    protocol: TCP
+    name: http
+  type: ClusterIP 

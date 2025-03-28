@@ -1,0 +1,10 @@
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/product-service/src/main/java/com/shopsphere/product/repository/elasticsearch/ProductElasticsearchRepository.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/product-service/src/main/java/com/shopsphere/product/service/impl/ProductServiceImpl.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/product-service/src/main/java/com/shopsphere/product/model/Product.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/product-service/src/main/java/com/shopsphere/product/repository/ProductRepository.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/product-service/src/main/java/com/shopsphere/product/controller/ProductController.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/product-service/src/main/java/com/shopsphere/product/ProductServiceApplication.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/product-service/src/main/java/com/shopsphere/product/dto/ProductDTO.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/product-service/src/main/java/com/shopsphere/product/config/ProductServiceConfig.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/product-service/src/main/java/com/shopsphere/product/mapper/ProductMapper.java
+/Users/kunalbhujbal/Desktop/Projects/ShopSphere-E-commerce-Microservice-Platform/product-service/src/main/java/com/shopsphere/product/service/ProductService.java
