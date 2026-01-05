@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6" />
+      <stop offset="100%" style="stop-color:#7c3aed" />
+    </linearGradient>
+    <linearGradient id="gatewayGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6" />
+      <stop offset="100%" style="stop-color:#2563eb" />
+    </linearGradient>
+    <linearGradient id="serviceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981" />
+      <stop offset="100%" style="stop-color:#059669" />
+    </linearGradient>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b" />
+      <stop offset="100%" style="stop-color:#d97706" />
+    </linearGradient>
+    <linearGradient id="redisGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444" />
+      <stop offset="100%" style="stop-color:#dc2626" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <filter id="shadowSm" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="url(#bgGrad)" rx="0"/>
+
+  <!-- Title -->
+  <text x="600" y="45" text-anchor="middle" fill="#f8fafc" font-size="28" font-weight="700" letter-spacing="1">ShopSphere — System Architecture</text>
+  <text x="600" y="70" text-anchor="middle" fill="#94a3b8" font-size="14">Microservices E-commerce Platform</text>
+
+  <!-- ===== CLIENT TIER ===== -->
+  <text x="80" y="115" fill="#c4b5fd" font-size="12" font-weight="600" letter-spacing="2">CLIENT TIER</text>
+  <rect x="80" y="125" width="1040" height="80" rx="16" fill="#1e1b4b" fill-opacity="0.4" stroke="#4c1d95" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- React Frontend -->
+  <rect x="400" y="138" width="400" height="54" rx="12" fill="url(#clientGrad)" filter="url(#shadow)"/>
+  <text x="600" y="163" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">React Frontend</text>
+  <text x="600" y="181" text-anchor="middle" fill="#e0d4ff" font-size="11">Vite + TypeScript + Tailwind + Redux Toolkit  •  :3000</text>
+
+  <!-- ===== Arrow: Client → Gateway ===== -->
+  <line x1="600" y1="192" x2="600" y2="232" stroke="#818cf8" stroke-width="2.5" marker-end="url(#arrowPurple)"/>
+  <text x="615" y="218" fill="#a5b4fc" font-size="10">HTTP / REST</text>
+  <defs>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#818cf8"/>
+    </marker>
+  </defs>
+
+  <!-- ===== GATEWAY TIER ===== -->
+  <text x="80" y="248" fill="#93c5fd" font-size="12" font-weight="600" letter-spacing="2">GATEWAY TIER</text>
+  <rect x="80" y="258" width="1040" height="80" rx="16" fill="#172554" fill-opacity="0.4" stroke="#1e40af" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- API Gateway -->
+  <rect x="300" y="270" width="600" height="56" rx="12" fill="url(#gatewayGrad)" filter="url(#shadow)"/>
+  <text x="600" y="296" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">API Gateway</text>
+  <text x="600" y="314" text-anchor="middle" fill="#bfdbfe" font-size="11">Spring Cloud Gateway  •  JWT Auth Filter  •  :8080</text>
+
+  <!-- ===== Arrows: Gateway → Services ===== -->
+  <!-- 8 arrows fanning out to services -->
+  <defs>
+    <marker id="arrowBlue" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#60a5fa"/>
+    </marker>
+  </defs>
+
+  <line x1="365" y1="326" x2="150" y2="398" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="430" y1="326" x2="290" y2="398" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="500" y1="326" x2="430" y2="398" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="560" y1="326" x2="570" y2="398" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="640" y1="326" x2="710" y2="398" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="700" y1="326" x2="850" y2="398" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="770" y1="326" x2="990" y2="398" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="835" y1="326" x2="1090" y2="398" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+
+  <!-- ===== SERVICE TIER ===== -->
+  <text x="80" y="385" fill="#6ee7b7" font-size="12" font-weight="600" letter-spacing="2">SERVICE TIER</text>
+  <rect x="80" y="395" width="1040" height="250" rx="16" fill="#052e16" fill-opacity="0.3" stroke="#166534" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- Service boxes — Row 1 -->
+  <!-- User Service -->
+  <rect x="95" y="410" width="120" height="100" rx="10" fill="url(#serviceGrad)" filter="url(#shadowSm)"/>
+  <text x="155" y="440" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">User</text>
+  <text x="155" y="455" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Service</text>
+  <text x="155" y="475" text-anchor="middle" fill="#d1fae5" font-size="9">Auth &amp; Profiles</text>
+  <text x="155" y="500" text-anchor="middle" fill="#a7f3d0" font-size="10" font-weight="600">:8083</text>
+
+  <!-- Product Service -->
+  <rect x="235" y="410" width="120" height="100" rx="10" fill="url(#serviceGrad)" filter="url(#shadowSm)"/>
+  <text x="295" y="440" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Product</text>
+  <text x="295" y="455" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Service</text>
+  <text x="295" y="475" text-anchor="middle" fill="#d1fae5" font-size="9">Catalog &amp; Inventory</text>
+  <text x="295" y="500" text-anchor="middle" fill="#a7f3d0" font-size="10" font-weight="600">:8081</text>
+
+  <!-- Order Service -->
+  <rect x="375" y="410" width="120" height="100" rx="10" fill="url(#serviceGrad)" filter="url(#shadowSm)"/>
+  <text x="435" y="440" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Order</text>
+  <text x="435" y="455" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Service</text>
+  <text x="435" y="475" text-anchor="middle" fill="#d1fae5" font-size="9">Order Processing</text>
+  <text x="435" y="500" text-anchor="middle" fill="#a7f3d0" font-size="10" font-weight="600">:8082</text>
+
+  <!-- Cart Service -->
+  <rect x="515" y="410" width="120" height="100" rx="10" fill="url(#serviceGrad)" filter="url(#shadowSm)"/>
+  <text x="575" y="440" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Cart</text>
+  <text x="575" y="455" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Service</text>
+  <text x="575" y="475" text-anchor="middle" fill="#d1fae5" font-size="9">Shopping Cart</text>
+  <text x="575" y="500" text-anchor="middle" fill="#a7f3d0" font-size="10" font-weight="600">:8084</text>
+
+  <!-- Payment Service -->
+  <rect x="655" y="410" width="120" height="100" rx="10" fill="url(#serviceGrad)" filter="url(#shadowSm)"/>
+  <text x="715" y="440" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Payment</text>
+  <text x="715" y="455" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Service</text>
+  <text x="715" y="475" text-anchor="middle" fill="#d1fae5" font-size="9">Transactions</text>
+  <text x="715" y="500" text-anchor="middle" fill="#a7f3d0" font-size="10" font-weight="600">:8085</text>
+
+  <!-- Shipping Service -->
+  <rect x="795" y="410" width="120" height="100" rx="10" fill="url(#serviceGrad)" filter="url(#shadowSm)"/>
+  <text x="855" y="440" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Shipping</text>
+  <text x="855" y="455" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Service</text>
+  <text x="855" y="475" text-anchor="middle" fill="#d1fae5" font-size="9">Delivery Tracking</text>
+  <text x="855" y="500" text-anchor="middle" fill="#a7f3d0" font-size="10" font-weight="600">:8086</text>
+
+  <!-- Notification Service -->
+  <rect x="935" y="410" width="120" height="100" rx="10" fill="url(#serviceGrad)" filter="url(#shadowSm)"/>
+  <text x="995" y="440" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Notification</text>
+  <text x="995" y="455" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Service</text>
+  <text x="995" y="475" text-anchor="middle" fill="#d1fae5" font-size="9">Alerts &amp; Messages</text>
+  <text x="995" y="500" text-anchor="middle" fill="#a7f3d0" font-size="10" font-weight="600">:8087</text>
+
+  <!-- Review Service — centered row 2 -->
+  <rect x="515" y="530" width="120" height="100" rx="10" fill="url(#serviceGrad)" filter="url(#shadowSm)"/>
+  <text x="575" y="560" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Review</text>
+  <text x="575" y="575" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Service</text>
+  <text x="575" y="595" text-anchor="middle" fill="#d1fae5" font-size="9">Ratings &amp; Reviews</text>
+  <text x="575" y="620" text-anchor="middle" fill="#a7f3d0" font-size="10" font-weight="600">:8088</text>
+
+  <!-- ===== DATA TIER ===== -->
+  <text x="80" y="670" fill="#fcd34d" font-size="12" font-weight="600" letter-spacing="2">DATA TIER</text>
+  <rect x="80" y="680" width="1040" height="130" rx="16" fill="#422006" fill-opacity="0.3" stroke="#92400e" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- Arrows: Services → Data -->
+  <defs>
+    <marker id="arrowGreen" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#34d399"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#f87171"/>
+    </marker>
+  </defs>
+
+  <!-- Arrows from services row 1 to MongoDB -->
+  <line x1="155" y1="510" x2="400" y2="700" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowGreen)"/>
+  <line x1="295" y1="510" x2="420" y2="700" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowGreen)"/>
+  <line x1="435" y1="510" x2="450" y2="700" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowGreen)"/>
+  <line x1="575" y1="510" x2="500" y2="700" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowGreen)"/>
+  <line x1="715" y1="510" x2="530" y2="700" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowGreen)"/>
+  <line x1="855" y1="510" x2="550" y2="700" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowGreen)"/>
+  <line x1="995" y1="510" x2="570" y2="700" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowGreen)"/>
+  <!-- Review service to MongoDB -->
+  <line x1="575" y1="630" x2="510" y2="700" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowGreen)"/>
+
+  <!-- Cart → Redis -->
+  <line x1="575" y1="510" x2="880" y2="700" stroke="#f87171" stroke-width="1.5" stroke-opacity="0.7" marker-end="url(#arrowRed)"/>
+
+  <!-- MongoDB -->
+  <rect x="320" y="700" width="320" height="60" rx="12" fill="url(#dbGrad)" filter="url(#shadow)"/>
+  <!-- DB icon -->
+  <ellipse cx="360" cy="722" rx="16" ry="10" fill="none" stroke="#fff" stroke-width="1.5"/>
+  <line x1="344" y1="722" x2="344" y2="740" stroke="#fff" stroke-width="1.5"/>
+  <line x1="376" y1="722" x2="376" y2="740" stroke="#fff" stroke-width="1.5"/>
+  <ellipse cx="360" cy="740" rx="16" ry="10" fill="none" stroke="#fff" stroke-width="1.5"/>
+  <text x="510" y="726" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">MongoDB</text>
+  <text x="510" y="748" text-anchor="middle" fill="#fef3c7" font-size="11">Primary Database  •  :27017</text>
+
+  <!-- Redis -->
+  <rect x="780" y="700" width="280" height="60" rx="12" fill="url(#redisGrad)" filter="url(#shadow)"/>
+  <text x="920" y="726" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">Redis</text>
+  <text x="920" y="748" text-anchor="middle" fill="#fee2e2" font-size="11">Caching &amp; Sessions  •  :6379</text>
+
+  <!-- ===== LEGEND ===== -->
+  <rect x="80" y="830" width="1040" height="50" rx="10" fill="#0f172a" fill-opacity="0.6" stroke="#334155" stroke-width="1"/>
+  <text x="100" y="860" fill="#94a3b8" font-size="12" font-weight="600">TECH STACK:</text>
+  <!-- Legend items -->
+  <rect x="210" y="847" width="10" height="10" rx="2" fill="#8b5cf6"/>
+  <text x="226" y="858" fill="#c4b5fd" font-size="11">React + Vite + TS</text>
+
+  <rect x="360" y="847" width="10" height="10" rx="2" fill="#3b82f6"/>
+  <text x="376" y="858" fill="#93c5fd" font-size="11">Spring Cloud Gateway</text>
+
+  <rect x="530" y="847" width="10" height="10" rx="2" fill="#10b981"/>
+  <text x="546" y="858" fill="#6ee7b7" font-size="11">Spring Boot 3.2</text>
+
+  <rect x="670" y="847" width="10" height="10" rx="2" fill="#f59e0b"/>
+  <text x="686" y="858" fill="#fcd34d" font-size="11">MongoDB 7</text>
+
+  <rect x="775" y="847" width="10" height="10" rx="2" fill="#ef4444"/>
+  <text x="791" y="858" fill="#fca5a5" font-size="11">Redis</text>
+
+  <rect x="850" y="847" width="10" height="10" rx="2" fill="#64748b"/>
+  <text x="866" y="858" fill="#94a3b8" font-size="11">JWT Authentication</text>
+
+  <rect x="1000" y="847" width="10" height="10" rx="2" fill="#06b6d4"/>
+  <text x="1016" y="858" fill="#67e8f9" font-size="11">REST APIs</text>
+</svg>
