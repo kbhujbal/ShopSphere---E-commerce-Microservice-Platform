@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Package, Minus, Plus, ShoppingCart, Check } from 'lucide-react';
 import { useGetProductByIdQuery } from '../../features/products/productsApi';
 import { useAddToCartMutation } from '../../features/cart/cartApi';
-import { useGetReviewsByProductIdQuery } from '../../features/reviews/reviewsApi';
+import { useGetReviewsByProductIdQuery, useGetAverageRatingQuery } from '../../features/reviews/reviewsApi';
 import { useAuth } from '../../hooks/useAuth';
 import { formatCurrency } from '../../utils/formatCurrency';
 import Button from '../../components/ui/Button';
@@ -28,6 +28,7 @@ export default function ProductDetailPage() {
     { productId: id!, page: reviewPage, size: 5 },
     { skip: !id },
   );
+  const { data: averageRating } = useGetAverageRatingQuery(id!, { skip: !id });
 
   if (isLoading) {
     return (
@@ -84,9 +85,9 @@ export default function ProductDetailPage() {
           <h1 className="mt-1 text-3xl font-bold text-gray-900">{product.name}</h1>
 
           <div className="mt-3 flex items-center gap-3">
-            <StarRating rating={product.rating ?? 0} />
+            <StarRating rating={averageRating ?? 0} />
             <span className="text-sm text-gray-500">
-              {product.reviewCount ?? 0} reviews
+              {reviewsData?.totalElements ?? 0} reviews
             </span>
           </div>
 

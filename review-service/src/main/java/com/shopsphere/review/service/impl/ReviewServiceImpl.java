@@ -31,7 +31,8 @@ public class ReviewServiceImpl implements ReviewService {
     public ReviewDTO createReview(ReviewDTO reviewDTO) {
         log.info("Creating new review for product: {}", reviewDTO.getProductId());
         Review review = reviewMapper.toEntity(reviewDTO);
-        review.setStatus("PENDING");
+        review.setStatus("APPROVED");
+        review.setApprovedAt(LocalDateTime.now());
         review = reviewRepository.save(review);
         return reviewMapper.toDTO(review);
     }
