@@ -8,7 +8,7 @@ spring:
     mongodb:
       host: ${MONGODB_HOST:localhost}
       port: 27017
-      database: shopsphere
+      database: shopsphere_notifications
       username: root
       password: root
       authentication-database: admin
