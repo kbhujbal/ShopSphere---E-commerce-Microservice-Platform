@@ -145,34 +145,28 @@
   <text x="995" y="515" text-anchor="middle" fill="#a7f3d0" font-size="10" font-weight="600">:8087</text>
 
   <!-- ===== FEIGN CLIENT INTER-SERVICE COMMUNICATION ===== -->
-  <!-- Order → Product (Feign: get product, update stock) -->
-  <line x1="375" y1="470" x2="355" y2="470" stroke="#22d3ee" stroke-width="2" stroke-dasharray="5,3" marker-start="url(#arrowCyanRev)"/>
-  <!-- Label for Order → Product -->
-  <rect x="268" y="540" width="148" height="32" rx="6" fill="#164e63" fill-opacity="0.85" stroke="#22d3ee" stroke-width="1"/>
-  <text x="342" y="553" text-anchor="middle" fill="#22d3ee" font-size="9" font-weight="700">FEIGN CLIENT</text>
-  <text x="342" y="564" text-anchor="middle" fill="#67e8f9" font-size="8">Get Product &amp; Update Stock</text>
-  <!-- Connector line from label to arrow area -->
-  <line x1="342" y1="540" x2="342" y2="525" stroke="#22d3ee" stroke-width="1" stroke-opacity="0.5"/>
-  <line x1="342" y1="525" x2="365" y2="490" stroke="#22d3ee" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="3,2"/>
+  <!-- Order → Product (Feign: get product, update stock) — curved arc above services -->
+  <path d="M 435 425 C 435 390, 295 390, 295 425" fill="none" stroke="#22d3ee" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowCyan)"/>
+  <!-- Label on the curve -->
+  <rect x="291" y="374" width="148" height="20" rx="6" fill="#164e63" fill-opacity="0.9" stroke="#22d3ee" stroke-width="1"/>
+  <text x="365" y="388" text-anchor="middle" fill="#22d3ee" font-size="9" font-weight="700">FEIGN: Get Product &amp; Update Stock</text>
 
-  <!-- Order → Notification (Feign: send notification) -->
-  <line x1="495" y1="475" x2="935" y2="475" stroke="#22d3ee" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowCyan)"/>
-  <!-- Label for Order → Notification -->
-  <rect x="628" y="540" width="164" height="32" rx="6" fill="#164e63" fill-opacity="0.85" stroke="#22d3ee" stroke-width="1"/>
-  <text x="710" y="553" text-anchor="middle" fill="#22d3ee" font-size="9" font-weight="700">FEIGN CLIENT</text>
-  <text x="710" y="564" text-anchor="middle" fill="#67e8f9" font-size="8">Order Confirmation Notification</text>
-  <!-- Connector line from label to arrow -->
-  <line x1="710" y1="540" x2="710" y2="480" stroke="#22d3ee" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="3,2"/>
+  <!-- Order → Notification (Feign: send notification) — curved arc below services -->
+  <path d="M 435 525 C 435 580, 995 580, 995 525" fill="none" stroke="#22d3ee" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowCyan)"/>
+  <!-- Label on the curve -->
+  <rect x="643" y="560" width="164" height="32" rx="6" fill="#164e63" fill-opacity="0.9" stroke="#22d3ee" stroke-width="1"/>
+  <text x="725" y="573" text-anchor="middle" fill="#22d3ee" font-size="9" font-weight="700">FEIGN CLIENT</text>
+  <text x="725" y="584" text-anchor="middle" fill="#67e8f9" font-size="8">Order Confirmation Notification</text>
 
   <!-- Review Service — row 2 centered -->
-  <rect x="440" y="590" width="120" height="100" rx="10" fill="url(#serviceGrad)" filter="url(#shadowSm)"/>
-  <text x="500" y="620" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Review</text>
-  <text x="500" y="635" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Service</text>
-  <text x="500" y="655" text-anchor="middle" fill="#d1fae5" font-size="9">Ratings &amp; Reviews</text>
-  <text x="500" y="680" text-anchor="middle" fill="#a7f3d0" font-size="10" font-weight="600">:8088</text>
+  <rect x="440" y="605" width="120" height="100" rx="10" fill="url(#serviceGrad)" filter="url(#shadowSm)"/>
+  <text x="500" y="635" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Review</text>
+  <text x="500" y="650" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Service</text>
+  <text x="500" y="670" text-anchor="middle" fill="#d1fae5" font-size="9">Ratings &amp; Reviews</text>
+  <text x="500" y="695" text-anchor="middle" fill="#a7f3d0" font-size="10" font-weight="600">:8088</text>
 
   <!-- Gateway arrow to Review Service -->
-  <line x1="580" y1="326" x2="500" y2="588" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)" stroke-opacity="0.7"/>
+  <line x1="580" y1="326" x2="500" y2="603" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)" stroke-opacity="0.7"/>
 
   <!-- ===== DATA TIER ===== -->
   <text x="80" y="740" fill="#fcd34d" font-size="12" font-weight="600" letter-spacing="2">DATA TIER</text>
@@ -187,7 +181,7 @@
   <line x1="855" y1="525" x2="550" y2="768" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.5" marker-end="url(#arrowGreen)"/>
   <line x1="995" y1="525" x2="570" y2="768" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.5" marker-end="url(#arrowGreen)"/>
   <!-- Review → MongoDB -->
-  <line x1="500" y1="690" x2="480" y2="768" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.5" marker-end="url(#arrowGreen)"/>
+  <line x1="500" y1="705" x2="480" y2="768" stroke="#34d399" stroke-width="1.2" stroke-opacity="0.5" marker-end="url(#arrowGreen)"/>
 
   <!-- Cart → Redis -->
   <line x1="600" y1="525" x2="880" y2="768" stroke="#f87171" stroke-width="1.5" stroke-opacity="0.6" marker-end="url(#arrowRed)"/>
