@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
         }
         Product product = productMapper.toEntity(productDTO);
         product = productRepository.save(product);
-        elasticsearchRepository.save(product);
+        indexToElasticsearch(product);
         return productMapper.toDTO(product);
     }
 
@@ -46,11 +46,11 @@ public class ProductServiceImpl implements ProductService {
         log.info("Updating product with id: {}", id);
         Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
-        
+
         Product updatedProduct = productMapper.toEntity(productDTO);
         updatedProduct.setId(existingProduct.getId());
         updatedProduct = productRepository.save(updatedProduct);
-        elasticsearchRepository.save(updatedProduct);
+        indexToElasticsearch(updatedProduct);
         return productMapper.toDTO(updatedProduct);
     }
 
@@ -62,7 +62,11 @@ public class ProductServiceImpl implements ProductService {
             throw new ResourceNotFoundException("Product not found with id: " + id);
         }
         productRepository.deleteById(id);
-        elasticsearchRepository.deleteById(id);
+        try {
+            elasticsearchRepository.deleteById(id);
+        } catch (Exception e) {
+            log.warn("Failed to delete product from Elasticsearch index: {}", id, e);
+        }
     }
 
     @Override
@@ -126,7 +130,7 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
         product.setStockQuantity(quantity);
         product = productRepository.save(product);
-        elasticsearchRepository.save(product);
+        indexToElasticsearch(product);
     }
 
     @Override
@@ -137,6 +141,14 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
         product.setRating(rating);
         product = productRepository.save(product);
-        elasticsearchRepository.save(product);
+        indexToElasticsearch(product);
+    }
+
+    private void indexToElasticsearch(Product product) {
+        try {
+            elasticsearchRepository.save(product);
+        } catch (Exception e) {
+            log.warn("Failed to index product in Elasticsearch: {}", product.getId(), e);
+        }
     }
 } 

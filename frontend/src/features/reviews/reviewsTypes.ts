@@ -1,0 +1,32 @@
+export interface ReviewDTO {
+  id: string;
+  userId: string;
+  productId: string;
+  orderId: string;
+  orderItemId: string;
+  rating: number;
+  title: string;
+  content: string;
+  images: string[];
+  verifiedPurchase: boolean;
+  helpful: boolean;
+  helpfulCount: number;
+  status: string | null;
+  moderatorNotes: string | null;
+  approvedAt: string | null;
+  rejectedAt: string | null;
+  rejectionReason: string | null;
+  featured: boolean;
+  likes: number;
+  dislikes: number;
+  tags: string[];
+  pros: string | null;
+  cons: string | null;
+  anonymous: boolean;
+  userNickname: string | null;
+  userLocation: string | null;
+  purchaseDate: string | null;
+  productVariant: string | null;
+  productSize: string | null;
+  productColor: string | null;
+}
