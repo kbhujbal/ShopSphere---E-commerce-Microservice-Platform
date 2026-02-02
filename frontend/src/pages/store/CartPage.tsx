@@ -7,6 +7,7 @@ import Button from '../../components/ui/Button';
 import Spinner from '../../components/ui/Spinner';
 import EmptyState from '../../components/ui/EmptyState';
 
+// cart component
 export default function CartPage() {
   const { user } = useAuth();
   const { data: cart, isLoading } = useGetCartQuery(user!.userId);
