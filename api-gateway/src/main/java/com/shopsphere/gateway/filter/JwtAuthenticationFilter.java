@@ -74,12 +74,14 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
                     .getPayload();
 
             String userId = claims.getSubject();
-            String roles = claims.get("roles", String.class);
+            @SuppressWarnings("unchecked")
+            List<String> roles = claims.get("roles", List.class);
+            String rolesStr = roles != null ? String.join(",", roles) : "";
 
             // Add user info headers to downstream request
             ServerHttpRequest modifiedRequest = request.mutate()
                     .header("X-User-Id", userId)
-                    .header("X-User-Roles", roles != null ? roles : "")
+                    .header("X-User-Roles", rolesStr)
                     .build();
 
             return chain.filter(exchange.mutate().request(modifiedRequest).build());
