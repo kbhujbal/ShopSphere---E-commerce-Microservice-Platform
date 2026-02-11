@@ -12,6 +12,9 @@ const reviewsApi = baseApi.injectEndpoints({
     getAverageRating: builder.query<number, string>({
       query: (productId) => `/reviews/product/${productId}/average-rating`,
     }),
+    getReviewCount: builder.query<number, string>({
+      query: (productId) => `/reviews/product/${productId}/count`,
+    }),
     createReview: builder.mutation<ReviewDTO, Partial<ReviewDTO>>({
       query: (body) => ({ url: '/reviews', method: 'POST', body }),
       invalidatesTags: ['Reviews'],
@@ -50,6 +53,7 @@ const reviewsApi = baseApi.injectEndpoints({
 export const {
   useGetReviewsByProductIdQuery,
   useGetAverageRatingQuery,
+  useGetReviewCountQuery,
   useCreateReviewMutation,
   useMarkHelpfulMutation,
   useLikeReviewMutation,

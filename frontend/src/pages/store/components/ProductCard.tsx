@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Package } from 'lucide-react';
 import type { ProductDTO } from '../../../features/products/productsTypes';
+import { useGetAverageRatingQuery, useGetReviewCountQuery } from '../../../features/reviews/reviewsApi';
 import { formatCurrency } from '../../../utils/formatCurrency';
 import StarRating from '../../../components/ui/StarRating';
 
@@ -9,6 +10,9 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { data: averageRating } = useGetAverageRatingQuery(product.id);
+  const { data: reviewCount } = useGetReviewCountQuery(product.id);
+
   return (
     <Link to={`/products/${product.id}`} className="group">
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white transition-shadow hover:shadow-md">
@@ -25,9 +29,9 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.name}
           </h3>
           <div className="mt-1 flex items-center gap-2">
-            <StarRating rating={product.rating ?? 0} size="sm" />
-            {product.reviewCount != null && product.reviewCount > 0 && (
-              <span className="text-xs text-gray-500">({product.reviewCount})</span>
+            <StarRating rating={averageRating ?? 0} size="sm" />
+            {reviewCount != null && reviewCount > 0 && (
+              <span className="text-xs text-gray-500">({reviewCount})</span>
             )}
           </div>
           <div className="mt-2 flex items-center justify-between">
