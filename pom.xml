@@ -10,9 +10,17 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>common</module>
+        <module>eureka-server</module>
+        <module>api-gateway</module>
+        <module>user-service</module>
         <module>product-service</module>
         <module>order-service</module>
-        <module>common</module>
+        <module>cart-service</module>
+        <module>payment-service</module>
+        <module>review-service</module>
+        <module>notification-service</module>
+        <module>shipping-service</module>
     </modules>
 
     <properties>

@@ -19,6 +19,7 @@ import com.shopsphere.review.dto.ReviewDTO;
 import com.shopsphere.review.mapper.ReviewMapper;
 import com.shopsphere.review.model.Review;
 import com.shopsphere.review.repository.ReviewRepository;
+import com.shopsphere.review.service.impl.ReviewServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class ReviewServiceTest {

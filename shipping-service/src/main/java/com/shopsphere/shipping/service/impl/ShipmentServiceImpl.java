@@ -82,10 +82,8 @@ public class ShipmentServiceImpl implements ShipmentService {
     @Transactional
     public ShipmentDTO calculateShippingCost(ShipmentDTO shipmentDTO) {
         log.info("Calculating shipping cost for order: {}", shipmentDTO.getOrderId());
-        // TODO: Implement actual shipping cost calculation logic
-        // This would typically involve calling a shipping carrier's API
         Shipment shipment = shipmentMapper.toEntity(shipmentDTO);
-        shipment.setShippingCost(calculateShippingCost(shipment));
+        shipment.setShippingCost(computeCost(shipment));
         return shipmentMapper.toDTO(shipment);
     }
 
@@ -135,10 +133,23 @@ public class ShipmentServiceImpl implements ShipmentService {
         return shipmentMapper.toDTO(shipment);
     }
 
-    private BigDecimal calculateShippingCost(Shipment shipment) {
-        // TODO: Implement actual shipping cost calculation logic
-        // This would typically involve calling a shipping carrier's API
-        // For now, returning a dummy value
-        return BigDecimal.valueOf(10.00);
+    private BigDecimal computeCost(Shipment shipment) {
+        BigDecimal baseCost = BigDecimal.valueOf(5.00);
+        BigDecimal perKgRate = BigDecimal.valueOf(1.50);
+        BigDecimal weight = shipment.getWeight() != null ? shipment.getWeight() : BigDecimal.ONE;
+        BigDecimal cost = baseCost.add(perKgRate.multiply(weight));
+
+        if ("express".equalsIgnoreCase(shipment.getServiceType())) {
+            cost = cost.multiply(BigDecimal.valueOf(1.5));
+        } else if ("overnight".equalsIgnoreCase(shipment.getServiceType())) {
+            cost = cost.multiply(BigDecimal.valueOf(2.0));
+        }
+
+        if (shipment.isInsuranceRequired()) {
+            BigDecimal declaredValue = shipment.getDeclaredValue() != null ? shipment.getDeclaredValue() : BigDecimal.ZERO;
+            cost = cost.add(declaredValue.multiply(BigDecimal.valueOf(0.02)));
+        }
+
+        return cost.setScale(2, java.math.RoundingMode.HALF_UP);
     }
 } 

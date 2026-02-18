@@ -3,18 +3,17 @@ package com.shopsphere.product.model;
 import com.shopsphere.common.model.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@org.springframework.data.mongodb.core.mapping.Document(collection = "products")
-@Document(indexName = "products")
+@Document(collection = "products")
+@org.springframework.data.elasticsearch.annotations.Document(indexName = "products")
 public class Product extends BaseEntity {
     @Field(type = FieldType.Text)
     private String name;
@@ -54,4 +53,4 @@ public class Product extends BaseEntity {
 
     @Field(type = FieldType.Text)
     private List<String> specifications;
-} 
+}

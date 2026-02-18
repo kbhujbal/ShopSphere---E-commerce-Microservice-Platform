@@ -1,5 +1,7 @@
 package com.shopsphere.order.service.impl;
 
+import com.shopsphere.order.client.NotificationServiceClient;
+import com.shopsphere.order.client.ProductServiceClient;
 import com.shopsphere.order.dto.OrderDTO;
 import com.shopsphere.order.exception.OrderNotFoundException;
 import com.shopsphere.order.mapper.OrderMapper;
@@ -7,18 +9,24 @@ import com.shopsphere.order.model.Order;
 import com.shopsphere.order.repository.OrderRepository;
 import com.shopsphere.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
+    private final ProductServiceClient productServiceClient;
+    private final NotificationServiceClient notificationServiceClient;
 
     @Override
     @Transactional
@@ -28,7 +36,21 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderDate(LocalDateTime.now());
         order.setOrderStatus("PENDING");
         order.setPaymentStatus("PENDING");
-        return orderMapper.toOrderDTO(orderRepository.save(order));
+        OrderDTO savedOrder = orderMapper.toOrderDTO(orderRepository.save(order));
+
+        try {
+            Map<String, Object> notification = new HashMap<>();
+            notification.put("userId", savedOrder.getUserId());
+            notification.put("title", "Order Confirmed");
+            notification.put("content", "Your order " + savedOrder.getOrderNumber() + " has been placed successfully");
+            notification.put("type", "IN_APP");
+            notification.put("category", "ORDER");
+            notificationServiceClient.createNotification(notification);
+        } catch (Exception e) {
+            log.warn("Failed to send order confirmation notification for order {}: {}", savedOrder.getOrderNumber(), e.getMessage());
+        }
+
+        return savedOrder;
     }
 
     @Override

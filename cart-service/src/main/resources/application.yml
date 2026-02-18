@@ -6,37 +6,24 @@ spring:
     name: cart-service
   data:
     mongodb:
-      host: mongodb
+      host: ${MONGODB_HOST:localhost}
       port: 27017
       database: shopsphere
       username: root
       password: root
-  data:
+      authentication-database: admin
     redis:
-      host: redis
+      host: ${REDIS_HOST:localhost}
       port: 6379
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      routes:
-        - id: cart-service
-          uri: lb://cart-service
-          predicates:
-            - Path=/api/v1/carts/**
-          filters:
-            - StripPrefix=1
 
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
   instance:
     prefer-ip-address: true
 
 logging:
   level:
     com.shopsphere: DEBUG
-    org.springframework: INFO 
+    org.springframework: INFO

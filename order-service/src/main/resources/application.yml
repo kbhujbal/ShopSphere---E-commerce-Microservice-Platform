@@ -1,23 +1,25 @@
 server:
-  port: 8083
+  port: 8082
 
 spring:
   application:
     name: order-service
   data:
     mongodb:
-      host: localhost
+      host: ${MONGODB_HOST:localhost}
       port: 27017
       database: shopsphere_order
-  data:
+      username: root
+      password: root
+      authentication-database: admin
     redis:
-      host: localhost
+      host: ${REDIS_HOST:localhost}
       port: 6379
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
   instance:
     prefer-ip-address: true
 
@@ -26,4 +28,4 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
-    operations-sorter: method 
+    operations-sorter: method

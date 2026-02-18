@@ -234,7 +234,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public int getVerifiedReviewCount(String productId) {
         log.info("Getting verified review count for product: {}", productId);
-        return reviewRepository.findByProductIdAndVerifiedPurchaseAndStatusAndDeletedFalseOrderByCreatedAtDesc(productId, true, "APPROVED", null)
+        return reviewRepository.findByProductIdAndVerifiedPurchaseAndStatusAndDeletedFalseOrderByCreatedAtDesc(productId, true, "APPROVED", Pageable.unpaged())
                 .getContent()
                 .size();
     }

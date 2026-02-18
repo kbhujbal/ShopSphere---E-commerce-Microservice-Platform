@@ -6,28 +6,24 @@ spring:
     name: product-service
   data:
     mongodb:
-      host: localhost
+      host: ${MONGODB_HOST:localhost}
       port: 27017
       database: shopsphere
-      authentication-database: admin
       username: root
       password: root
-  data:
+      authentication-database: admin
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: 6379
     elasticsearch:
-      uris: http://localhost:9200
+      uris: ${ELASTICSEARCH_URI:http://localhost:9200}
       username: elastic
       password: changeme
-  data:
-    redis:
-      host: localhost
-      port: 6379
-      password: 
-      database: 0
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
   instance:
     prefer-ip-address: true
 
@@ -37,4 +33,4 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     operations-sorter: method
-    tags-sorter: alpha 
+    tags-sorter: alpha

@@ -15,6 +15,7 @@ import com.shopsphere.payment.service.PaymentService;
 import com.shopsphere.common.exception.ResourceNotFoundException;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
+import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
 import com.stripe.model.Refund;
 import com.stripe.param.PaymentIntentCreateParams;
@@ -110,7 +111,11 @@ public class PaymentServiceImpl implements PaymentService {
             payment.setPaymentIntentId(paymentIntent.getId());
             payment.setStatus(paymentIntent.getStatus());
             payment.setPaymentDate(LocalDateTime.now());
-            payment.setReceiptUrl(paymentIntent.getCharges().getData().get(0).getReceiptUrl());
+            String latestChargeId = paymentIntent.getLatestCharge();
+            if (latestChargeId != null) {
+                Charge charge = Charge.retrieve(latestChargeId);
+                payment.setReceiptUrl(charge.getReceiptUrl());
+            }
             payment = paymentRepository.save(payment);
 
             return paymentMapper.toDTO(payment);

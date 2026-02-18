@@ -13,6 +13,7 @@ import com.shopsphere.cart.model.Cart;
 import com.shopsphere.cart.model.CartItem;
 import com.shopsphere.cart.repository.CartRepository;
 import com.shopsphere.cart.service.CartService;
+import com.shopsphere.common.exception.BadRequestException;
 import com.shopsphere.common.exception.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -145,8 +146,25 @@ public class CartServiceImpl implements CartService {
                 .orElseThrow(() -> new ResourceNotFoundException("Cart not found for user: " + userId));
 
         cart.setCouponCode(couponCode);
-        // TODO: Implement coupon validation and discount calculation
-        cart.setDiscount(BigDecimal.ZERO);
+        BigDecimal subtotal = cart.getSubtotal() != null ? cart.getSubtotal() : BigDecimal.ZERO;
+        BigDecimal discount;
+        switch (couponCode) {
+            case "SAVE10":
+                discount = subtotal.multiply(BigDecimal.valueOf(0.10));
+                break;
+            case "SAVE20":
+                discount = subtotal.multiply(BigDecimal.valueOf(0.20));
+                break;
+            case "FLAT5":
+                discount = BigDecimal.valueOf(5);
+                break;
+            case "FLAT10":
+                discount = BigDecimal.valueOf(10);
+                break;
+            default:
+                throw new BadRequestException("Invalid coupon code");
+        }
+        cart.setDiscount(discount);
         updateCartTotals(cart);
         cart = cartRepository.save(cart);
         return cartMapper.toDTO(cart);
@@ -171,11 +189,15 @@ public class CartServiceImpl implements CartService {
                 .map(CartItem::getSubtotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add));
 
-        // TODO: Implement tax calculation based on location
-        cart.setTax(BigDecimal.ZERO);
+        // Tax: 8% of subtotal
+        cart.setTax(cart.getSubtotal().multiply(BigDecimal.valueOf(0.08)));
 
-        // TODO: Implement shipping cost calculation based on location and weight
-        cart.setShippingCost(BigDecimal.ZERO);
+        // Shipping: free if subtotal > $50, otherwise flat $5.99
+        if (cart.getSubtotal().compareTo(BigDecimal.valueOf(50)) > 0) {
+            cart.setShippingCost(BigDecimal.ZERO);
+        } else {
+            cart.setShippingCost(BigDecimal.valueOf(5.99));
+        }
 
         cart.setTotal(cart.getSubtotal()
                 .add(cart.getTax())
