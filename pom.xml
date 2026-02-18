@@ -33,9 +33,7 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <resilience4j.version>2.1.0</resilience4j.version>
         <jjwt.version>0.12.5</jjwt.version>
-        <mongo.version>4.6.1</mongo.version>
         <elasticsearch.version>8.12.1</elasticsearch.version>
-        <redis.version>3.2.3</redis.version>
         <swagger.version>2.3.0</swagger.version>
     </properties>
 
@@ -113,25 +111,11 @@
                 <scope>runtime</scope>
             </dependency>
 
-            <!-- MongoDB -->
-            <dependency>
-                <groupId>org.mongodb</groupId>
-                <artifactId>mongodb-driver-sync</artifactId>
-                <version>${mongo.version}</version>
-            </dependency>
-
             <!-- Elasticsearch -->
             <dependency>
                 <groupId>co.elastic.clients</groupId>
                 <artifactId>elasticsearch-java</artifactId>
                 <version>${elasticsearch.version}</version>
-            </dependency>
-
-            <!-- Redis -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>${redis.version}</version>
             </dependency>
 
             <!-- Swagger -->
@@ -152,6 +136,7 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <parameters>true</parameters>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>

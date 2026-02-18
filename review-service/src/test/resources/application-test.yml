@@ -1,26 +1,27 @@
 server:
-  port: 8086
+  port: 8088
 
 spring:
   application:
     name: review-service
   data:
     mongodb:
-      host: localhost
-      port: 27017
       database: reviewdb_test
-      username: testuser
-      password: testpass
     redis:
       host: localhost
       port: 6379
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
 
-eureka:
-  client:
-    enabled: false
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 7.0.0
 
 logging:
   level:
     com.shopsphere.review: DEBUG
     org.springframework.data.mongodb: INFO
-    org.springframework.data.redis: INFO 

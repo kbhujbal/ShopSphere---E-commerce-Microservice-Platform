@@ -127,8 +127,8 @@ class ReviewIntegrationTest {
         review = reviewRepository.save(review);
 
         mockMvc.perform(put("/api/v1/reviews/{id}/approve", review.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("\"Approved by moderator\""))
+                .contentType(MediaType.TEXT_PLAIN)
+                .content("Approved by moderator"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("APPROVED"))
                 .andExpect(jsonPath("$.moderatorNotes").value("Approved by moderator"));
@@ -149,8 +149,8 @@ class ReviewIntegrationTest {
         review = reviewRepository.save(review);
 
         mockMvc.perform(put("/api/v1/reviews/{id}/reject", review.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("\"Inappropriate content\""))
+                .contentType(MediaType.TEXT_PLAIN)
+                .content("Inappropriate content"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("REJECTED"))
                 .andExpect(jsonPath("$.rejectionReason").value("Inappropriate content"));
