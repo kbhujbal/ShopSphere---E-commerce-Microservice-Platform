@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "product-service")
+@FeignClient(name = "product-service", url = "${services.product.url}")
 public interface ProductServiceClient {
     @GetMapping("/api/v1/products/{id}")
     ApiResponse<?> getProductById(@PathVariable("id") String id);

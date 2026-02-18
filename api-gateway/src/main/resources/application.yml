@@ -5,22 +5,26 @@ spring:
   application:
     name: api-gateway
 
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
-  instance:
-    prefer-ip-address: true
-
 jwt:
   secret: ${JWT_SECRET:mySecretKeyForJWTTokenGenerationThatIsLongEnoughForHS256Algorithm2024}
+
+services:
+  user:
+    url: ${USER_SERVICE_URL:http://localhost:8083}
+  product:
+    url: ${PRODUCT_SERVICE_URL:http://localhost:8081}
+  order:
+    url: ${ORDER_SERVICE_URL:http://localhost:8082}
+  cart:
+    url: ${CART_SERVICE_URL:http://localhost:8084}
+  payment:
+    url: ${PAYMENT_SERVICE_URL:http://localhost:8085}
+  shipping:
+    url: ${SHIPPING_SERVICE_URL:http://localhost:8086}
+  notification:
+    url: ${NOTIFICATION_SERVICE_URL:http://localhost:8087}
+  review:
+    url: ${REVIEW_SERVICE_URL:http://localhost:8088}
 
 management:
   endpoints:

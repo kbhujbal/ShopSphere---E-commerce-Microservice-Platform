@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shopsphere-config
+  namespace: shopsphere
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  MONGODB_HOST: mongodb
+  REDIS_HOST: redis
+  ELASTICSEARCH_URI: http://elasticsearch:9200
+  USER_SERVICE_URL: http://user-service:8083
+  PRODUCT_SERVICE_URL: http://product-service:8081
+  ORDER_SERVICE_URL: http://order-service:8082
+  CART_SERVICE_URL: http://cart-service:8084
+  PAYMENT_SERVICE_URL: http://payment-service:8085
+  SHIPPING_SERVICE_URL: http://shipping-service:8086
+  NOTIFICATION_SERVICE_URL: http://notification-service:8087
+  REVIEW_SERVICE_URL: http://review-service:8088
